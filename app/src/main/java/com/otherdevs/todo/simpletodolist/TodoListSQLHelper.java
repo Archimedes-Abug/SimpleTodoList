@@ -16,11 +16,18 @@ public class TodoListSQLHelper extends SQLiteOpenHelper {
     public static final String COL1_TASK = "todo";
     public static final String _ID = BaseColumns._ID;
 
+
+    /*
+    constructor
+     */
     public TodoListSQLHelper(Context context) {
         //1 is todo list database version
         super(context, DB_NAME, null, 1);
     }
 
+    /*
+    Function Name: onCreate() - called on initial run to create a SQLite DB
+     */
     @Override
     public void onCreate(SQLiteDatabase sqlDB) {
         String createTodoListTable = "CREATE TABLE " + TABLE_NAME + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -28,6 +35,9 @@ public class TodoListSQLHelper extends SQLiteOpenHelper {
         sqlDB.execSQL(createTodoListTable);
     }
 
+    /*
+    Function Name: onUpgrade() - called if Upgrade in created table is needed
+     */
     @Override
     public void onUpgrade(SQLiteDatabase sqlDB, int i, int i2) {
         sqlDB.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);

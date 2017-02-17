@@ -20,6 +20,9 @@ public class MainActivity extends ListActivity {
     private ListAdapter todoListAdapter;
     private TodoListSQLHelper todoListSQLHelper;
 
+    /*
+    Function Name: onCreate() - a call-back function. Included in the Activity life cycle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,12 @@ public class MainActivity extends ListActivity {
         updateTodoList();
     }
 
-    //update the todo task list UI
+    /*
+    Function Name: updateTodoList() - update the todo task list UI.  Used SQLite to persist data.
+    Comments: Used SimpleCursorAdapter to fill listView in activity_main.xml.  Layout for individual entries in
+    the list came from todotask.xml
+     */
+
     private void updateTodoList() {
         todoListSQLHelper = new TodoListSQLHelper(MainActivity.this);
         SQLiteDatabase sqLiteDatabase = todoListSQLHelper.getReadableDatabase();
@@ -51,6 +59,10 @@ public class MainActivity extends ListActivity {
         this.setListAdapter(todoListAdapter);
     }
 
+    /*
+    Function Name: onDoneButtonClick() - a call back method called in todotask.xml
+    comments: Basically deletes a certain task once it is done.  Then updates the TodoList UI
+     */
     public void onDoneButtonClick(View view) {
         View v = (View) view.getParent();
         TextView todoTV = (TextView) v.findViewById(R.id.todoTaskTV);
@@ -65,12 +77,19 @@ public class MainActivity extends ListActivity {
         updateTodoList();
     }
 
+    /*
+    Function Name: onCreateOptionsMenu() - defines what will be displayed in the menu of the initial screen
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.todo, menu);
         return true;
     }
 
+    /*
+    Function Name:onOptionsItemSelected() - Basically defines the add_task action.
+    comments: Creates an Alert Dialog then adds the task once ok is clicked.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
